@@ -170,7 +170,7 @@ complete -C /usr/bin/nomad nomad
 #git clone --bare https://github.com/paulmallon/cfg.git $HOME/.cfg
 #config checkout
 #config config status.showUntrackedFiles no
-
+#config config credential.helper cache
 
 function config {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
