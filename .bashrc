@@ -172,9 +172,10 @@ complete -C /usr/bin/nomad nomad
 #config config status.showUntrackedFiles no
 #config config credential.helper cache
 
-function config {
-   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
-}
+
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' 
+# todo install complete-alias
+#complete -F _complete_alias config
 
 #mkdir -p .config-backup
 #config checkout
