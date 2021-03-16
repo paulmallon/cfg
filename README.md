@@ -12,6 +12,7 @@
     alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME
     config config status.showUntrackedFiles no
     config config credential.helper cache
+    config remote set-url origin git@github.com:paulmallon/cfg.git
     
 ## Backup existing files    
 
@@ -34,3 +35,5 @@
 ## Links
 
 https://www.atlassian.com/git/tutorials/dotfiles
+
+https://news.ycombinator.com/item?id=11071754
