@@ -11,7 +11,8 @@
     git clone --bare git@github.com:paulmallon/cfg.git $HOME/.cfg
     alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME
     config config status.showUntrackedFiles no
-    config config credential.helper cache    
+    git push -u origin main
+
     
 ## Backup existing files    
 
