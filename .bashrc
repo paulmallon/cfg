@@ -110,6 +110,7 @@ fi
 
 #
 # zenburn colors
+# 
 #
 echo -ne '\e]12;#BFBFBF\a'
 echo -ne '\e]10;#DCDCCC\a'
