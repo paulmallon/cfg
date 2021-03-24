@@ -24,3 +24,8 @@ alias cpulow='echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/sca
 # system monitor aliases
 alias cpuwatch='sudo watch -t -n ,5 s-tui -j'
 alias cpuwatch2='watch grep \"cpu MHz\" /proc/cpuinfo'
+
+
+# mvn
+alias mit='mvn clean install -P it'
+alias mci='mvn clean install'
