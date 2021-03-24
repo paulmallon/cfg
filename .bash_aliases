@@ -27,6 +27,9 @@ alias cpuwatch2='watch grep \"cpu MHz\" /proc/cpuinfo'
 
 
 # mvn
-alias mit='mvn clean install -P it'
+alias mciit='mvn clean install -P it'
 alias mci='mvn clean install'
 alias mcist='mvnrun clean install -Dmaven.test.skip=true $@'
+alias mt='mvnrun test $@'
+alias mc='mvnrun clean $@'
+alias mct='mvnrun clean test $@'
