@@ -1,3 +1,7 @@
+# cfg
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' 
+alias configadd='config add ~/.bashrc && config add ~/.bash_aliases && config commit -m $@'
+
 
 # alert alias
 #  Example:   sleep 10; alert
@@ -33,3 +37,8 @@ alias mcist='mvnrun clean install -Dmaven.test.skip=true $@'
 alias mt='mvnrun test $@'
 alias mc='mvnrun clean $@'
 alias mct='mvnrun clean test $@'
+
+
+# ansible-play
+alias ap='ansible-playbook local.yml --ask-become-pass $@'
+
