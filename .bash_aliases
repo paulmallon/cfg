@@ -1,6 +1,7 @@
 # cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' 
-alias configadd='config add ~/.bashrc && config add ~/.bash_aliases && config commit -m $@'
+alias configcommit='config add ~/.bashrc && config add ~/.bash_aliases && git commit -m "Updated: `date +'%Y-%m-%d %H:%M:%S'`"
+
 
 
 
