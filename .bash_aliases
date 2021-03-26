@@ -1,10 +1,9 @@
-# sudp
-alias sudp=sudo
+# sudo
+alias sudp='sudo'
 
 # cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' 
-alias configcommit='config add ~/.bashrc && config add ~/.bash_aliases && config commit -m $@'
-
+alias configcommit='config add ~/.bashrc && config add ~/.bash_aliases && config commit -m "Updated .bashrc and .bash_aliases"'
 
 
 
