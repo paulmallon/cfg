@@ -3,7 +3,7 @@ alias sudp='sudo'
 
 # cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' 
-alias configcommit='config add ~/.bashrc && config add ~/.bash_aliases && config commit -m "Updated .bashrc and .bash_aliases"'
+alias configcommit='config add ~/.bashrc && config add ~/.bash_aliases && config commit -m "Updated .bashrc and .bash_aliases" && config push'
 
 
 
@@ -33,7 +33,6 @@ alias cpulow='echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/sca
 alias cpuwatch='sudo watch -t -n ,5 s-tui -j'
 alias cpuwatch2='watch grep \"cpu MHz\" /proc/cpuinfo'
 
-
 # mvn
 alias mciit='mvn clean install -P it'
 alias mci='mvn clean install'
@@ -42,7 +41,12 @@ alias mt='mvnrun test $@'
 alias mc='mvnrun clean $@'
 alias mct='mvnrun clean test $@'
 
-
 # ansible-play
 alias ap='ansible-playbook local.yml --ask-become-pass $@'
+
+# docker-compose
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+alias dcps='docker-compose ps'
+
 
