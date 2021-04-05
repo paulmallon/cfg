@@ -163,4 +163,10 @@ complete -C /usr/bin/nomad nomad
 #export PATH=$PATH:$JAVA_HOME/bin
 
 
+#
+# confluent hub
+#
+export PATH=$PATH:/usr/local/bin/confluent-hub/bin
+
+
 
