@@ -1,9 +1,9 @@
 # sudo
 alias sudp='sudo'
 
-# watch ports
+# watch port(s)
+alias watchport="watch -n 1 -d -t 'nc -v -z 127.0.0.1 $@'"
 alias watchports="watch -n 1 -d -t 'netstat -tulpn | grep LISTEN'"
-
 
 # java version
 alias javaversion='sudo update-alternatives --config java'
