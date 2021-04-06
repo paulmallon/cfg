@@ -54,3 +54,5 @@ alias dcd='docker-compose down'
 alias dcps='docker-compose ps'
 
 
+# random
+alias randomstrings='head -c 5000 /dev/urandom  | tr -dc 'a-zA-Z0-9' | fold -w 30'
