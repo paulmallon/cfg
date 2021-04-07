@@ -168,5 +168,13 @@ complete -C /usr/bin/nomad nomad
 #
 export PATH=$PATH:/usr/local/bin/confluent-hub/bin
 
+#
+# ~/.local/bin
+#
+export PATH=$PATH:/home/pm/.local/bin
 
 
+#
+# gihub url
+#
+export GITHUB=git@github.com:paulmallon
