@@ -60,4 +60,4 @@ alias randomstrings='head -c 5000 /dev/urandom  | tr -dc 'a-zA-Z0-9' | fold -w 3
 # ksql db
 alias ksql='docker exec -it ksqldb ksql http://localhost:8088'
 
-
+function ec2() { ssh -i /home/pm/.ssh/ec2-2021.pem ubuntu@$1; }
