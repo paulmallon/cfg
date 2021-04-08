@@ -2,7 +2,7 @@
 alias sudp='sudo'
 
 # watch port(s)
-alias watchport="watch -n 1 -d -t 'nc -v -z 127.0.0.1 $@'"
+alias watchport="watch -n 1 -d -t 'nc -v -z 127.0.0.1'"
 alias watchports="watch -n 1 -d -t 'netstat -tulpn | grep LISTEN'"
 
 # java version
@@ -40,13 +40,13 @@ alias cpuwatch2='watch grep \"cpu MHz\" /proc/cpuinfo'
 # mvn
 alias mciit='mvn clean install -P it'
 alias mci='mvn clean install'
-alias mcist='mvnrun clean install -Dmaven.test.skip=true $@'
-alias mt='mvnrun test $@'
-alias mc='mvnrun clean $@'
-alias mct='mvnrun clean test $@'
+alias mcist='mvnrun clean install -Dmaven.test.skip=true'
+alias mt='mvnrun test'
+alias mc='mvnrun clean'
+alias mct='mvnrun clean test'
 
 # ansible-play
-alias ap='ansible-playbook local.yml --ask-become-pass $@'
+alias ap='ansible-playbook local.yml --ask-become-pass'
 
 # docker-compose
 alias dcu='docker-compose up'
