@@ -91,25 +91,25 @@ _c_reset="\e[0m"
 
 # log functions
 _logError() {
-  printf "${_ct}[${_ctb_error}ERROR${_ct}] $1${_c_reset}\n"
+  printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"
 }
 
 _logSuccess() {
-  printf "${_ct}[${_ctb_success}OK${_ct}] $1${_c_reset}\n"
+  printf "${_ct}[${_ctb_success}OK${_ct}] $*${_c_reset}\n"
 }
 
 _logWarning() {
-  printf "${_ct}[${_ctb_warning}WARN${_ct}] $1${_c_reset}\n"
+  printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}\n"
 }
 
 _logInfo() {
-  printf "${_ct}[${_ctb_highlight}INFO${_ct}] $1${_c_reset}\n"
+  printf "${_ct}[${_ctb_highlight}INFO${_ct}] $*${_c_reset}\n"
 }
 
 _logDebug() {
-  printf "${_ct}[${_ctb_primary}DEBUG${_ct}] $1${_c_reset}\n"
+  printf "${_ct}[${_ctb_primary}DEBUG${_ct}] $*${_c_reset}\n"
 }
 
 _logTrace() {
-  printf "${_ct}[${_ctb_subtle}TRACE${_ct}] $1${_c_reset}\n"
+  printf "${_ct}[${_ctb_subtle}TRACE${_ct}] $*${_c_reset}\n"
 }
