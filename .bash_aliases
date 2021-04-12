@@ -64,7 +64,7 @@ alias ksql='docker exec -it ksqldb ksql http://localhost:8088'
 function ec2() { ssh -i /home/pm/.ssh/ec2-2021.pem ubuntu@$1; }
 
 # pretty 
-function pretty () { pygmentize -f terminal "$1" | less -R;}
+function pretty () { pygmentize -f terminal "$1"; }
 
 # list all colors available in 256 color mode (http://jafrog.com/2013/11/23/colors-in-terminal.html)
 function _colors() {
@@ -90,26 +90,9 @@ _ctb="\e[1;37m"
 _c_reset="\e[0m"
 
 # log functions
-_logError() {
-  printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"
-}
-
-_logSuccess() {
-  printf "${_ct}[${_ctb_success}OK${_ct}] $*${_c_reset}\n"
-}
-
-_logWarning() {
-  printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}\n"
-}
-
-_logInfo() {
-  printf "${_ct}[${_ctb_highlight}INFO${_ct}] $*${_c_reset}\n"
-}
-
-_logDebug() {
-  printf "${_ct}[${_ctb_primary}DEBUG${_ct}] $*${_c_reset}\n"
-}
-
-_logTrace() {
-  printf "${_ct}[${_ctb_subtle}TRACE${_ct}] $*${_c_reset}\n"
-}
+function _logTrace()   { printf "${_ct}[${_ctb_subtle}TRACE${_ct}] $*${_c_reset}\n"; }
+function _logDebug()   { printf "${_ct}[${_ctb_primary}DEBUG${_ct}] $*${_c_reset}\n"; }
+function _logInfo()    { printf "${_ct}[${_ctb_highlight}INFO${_ct}] $*${_c_reset}\n"; }
+function _logSuccess() { printf "${_ct}[${_ctb_success}OK${_ct}] $*${_c_reset}\n"; }
+function _logWarning() { printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}\n"; }
+function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"; }
