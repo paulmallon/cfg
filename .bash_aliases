@@ -47,7 +47,7 @@ alias mct='mvnrun clean test'
 
 # ansible-play
 alias ap='ansible-playbook local.yml --ask-become-pass'
-alias apt='ansible-playbook local.yml --ask-become-pass --tags'
+alias aptags='ansible-playbook local.yml --ask-become-pass --tags'
 
 # docker-compose
 alias dcu='docker-compose up'
