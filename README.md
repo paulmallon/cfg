@@ -9,27 +9,24 @@
 ## Setup
 
     git clone --bare git@github.com:paulmallon/cfg.git $HOME/.cfg
-    alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME
+    alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
     config config status.showUntrackedFiles no
-    git push -u origin main
+    config push -u origin main
 
     
 ## Backup existing files    
 
-    mkdir -p .config-backup && \
+    mkdir -p .config-backup
     config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | \
     xargs -I{} mv {} .config-backup/{}
-    
+       
 ## Checkout    
 
     config checkout
     
-## Add files
-
-    config status
-    config add .somefile
-    config commit -m "Add .somefile"
-    config push
+## Commit and push 
+    
+    configcommit
 
 
 ## Links
