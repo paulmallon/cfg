@@ -61,7 +61,27 @@ alias randomstrings='head -c 5000 /dev/urandom  | tr -dc 'a-zA-Z0-9' | fold -w 3
 alias ksql='docker exec -it ksqldb ksql http://localhost:8088'
 
 # ec2
-function ec2() { ssh -i /home/pm/.ssh/ec2-2021.pem ubuntu@$1; }
+__instanceId="i-01831f648d04a2008"
+
+function start-bokker() {
+	aws ec2 start-instances --instance-id ${__instanceId} | jq .
+	aws ec2 wait instance-running --instance-id ${__instanceId}
+	aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
+	local publicDnsName=$(aws ec2 describe-instances --instance-id ${__instanceId} | jq -r '.Reservations[].Instances[] | select(.InstanceId == "i-01831f648d04a2008") | .PublicDnsName')
+	printf "\n\nPublic DNS:\n\n${publicDnsName}\n\n"
+
+}
+
+function stop-bokker() {
+	aws ec2 stop-instances --instance-id i-01831f648d04a2008 | jq .
+	aws ec2 wait instance-stopped --instance-id i-01831f648d04a2008
+	aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
+	printf "\n\nInstance stopped\n\n"
+}
+
+function ec2-connect() {
+	ssh -i /home/pm/.ssh/ec2-2021.pem ubuntu@$1
+}
 
 # pretty 
 function pretty () { pygmentize -f terminal "$1"; }
