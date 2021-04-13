@@ -63,25 +63,31 @@ alias ksql='docker exec -it ksqldb ksql http://localhost:8088'
 # ec2
 __instanceId="i-01831f648d04a2008"
 
+function ec2-connect() {
+	local ip=$1
+	[[ -z $ip ]] && ip=$(aws ec2 describe-instances --instance-id ${__instanceId} | jq -r ".Reservations[].Instances[] | select(.InstanceId == \"${__instanceId}\") | .PublicDnsName" )
+        ssh -oStrictHostKeyChecking=no -i /home/pm/.ssh/ec2-2021.pem ubuntu@${ip}
+}
+
+function ec2-status() {
+	local instanceId=$1
+	[[ -z $instanceId ]] && instanceId=${__instanceId}
+	aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
+}
+
 function start-bokker() {
 	aws ec2 start-instances --instance-id ${__instanceId} | jq .
 	aws ec2 wait instance-running --instance-id ${__instanceId}
-	aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
-	local publicDnsName=$(aws ec2 describe-instances --instance-id ${__instanceId} | jq -r '.Reservations[].Instances[] | select(.InstanceId == "i-01831f648d04a2008") | .PublicDnsName')
-	printf "\n\nPublic DNS:\n\n${publicDnsName}\n\nPress enter to start ssh connection (ctrl+c to abort)\n"
-	read
-	ssh -i /home/pm/.ssh/ec2-2021.pem ubuntu@${publicDnsName}
+	ec2-status
+	printf "\n\nPress enter to connect (ctrl-c to abort)...\n\n"
+	ec2-connect
 }
 
 function stop-bokker() {
 	aws ec2 stop-instances --instance-id i-01831f648d04a2008 | jq .
 	aws ec2 wait instance-stopped --instance-id i-01831f648d04a2008
-	#aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
+	ec2-status
 	printf "\n\nInstance stopped\n\n"
-}
-
-function ec2-connect() {
-	ssh -i /home/pm/.ssh/ec2-2021.pem ubuntu@$1
 }
 
 # pretty 
