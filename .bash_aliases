@@ -68,14 +68,15 @@ function start-bokker() {
 	aws ec2 wait instance-running --instance-id ${__instanceId}
 	aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
 	local publicDnsName=$(aws ec2 describe-instances --instance-id ${__instanceId} | jq -r '.Reservations[].Instances[] | select(.InstanceId == "i-01831f648d04a2008") | .PublicDnsName')
-	printf "\n\nPublic DNS:\n\n${publicDnsName}\n\n"
-
+	printf "\n\nPublic DNS:\n\n${publicDnsName}\n\nPress enter to start ssh connection (ctrl+c to abort)\n"
+	read
+	ssh -i /home/pm/.ssh/ec2-2021.pem ubuntu@${publicDnsName}
 }
 
 function stop-bokker() {
 	aws ec2 stop-instances --instance-id i-01831f648d04a2008 | jq .
 	aws ec2 wait instance-stopped --instance-id i-01831f648d04a2008
-	aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
+	#aws ec2 describe-instance-status --instance-id ${__instanceId} | jq .
 	printf "\n\nInstance stopped\n\n"
 }
 
