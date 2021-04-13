@@ -76,7 +76,7 @@ function ec2-status() {
 	aws ec2 describe-instance-status --instance-id ${instanceId} | jq .
 }
 
-function start-ec2() {
+function ec2-start() {
 	local instanceId=$1
         [[ -z $instanceId ]] && instanceId=${__instanceId}
 	aws ec2 start-instances --instance-id ${instanceId} | jq .
@@ -86,7 +86,7 @@ function start-ec2() {
 	ec2-connect ${instanceId}
 }
 
-function stop-ec2() {
+function ec2-stop() {
 	local instanceId=$1
         [[ -z $instanceId ]] && instanceId=${__instanceId}
 	aws ec2 stop-instances --instance-id ${instanceId} | jq .
