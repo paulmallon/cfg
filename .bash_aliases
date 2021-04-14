@@ -131,3 +131,6 @@ function _logInfo()    { printf "${_ct}[${_ctb_highlight}INFO${_ct}] $*${_c_rese
 function _logSuccess() { printf "${_ct}[${_ctb_success}OK${_ct}] $*${_c_reset}\n"; }
 function _logWarning() { printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}\n"; }
 function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"; }
+
+# Print commands and their arguments as they are executed
+function debug-command() {  set -x; eval $@; set +x; }
