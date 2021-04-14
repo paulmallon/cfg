@@ -40,10 +40,10 @@ alias cpuwatch2='watch grep \"cpu MHz\" /proc/cpuinfo'
 # mvn
 alias mciit='mvn clean install -P it'
 alias mci='mvn clean install'
-alias mcist='mvnrun clean install -Dmaven.test.skip=true'
-alias mt='mvnrun test'
-alias mc='mvnrun clean'
-alias mct='mvnrun clean test'
+alias mcist='mvn clean install -Dmaven.test.skip=true'
+alias mt='mvn test'
+alias mc='mvn clean'
+alias mct='mvn clean test'
 
 # ansible-play
 alias ap='ansible-playbook local.yml --ask-become-pass'
