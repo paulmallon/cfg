@@ -23,9 +23,12 @@ alias l='ls -CF --color'
 alias ls='ls -alF --color'
 
 # git aliases
-alias gl='git log --oneline -25'
+alias gl='git log --oneline'
+alias gs='git status -b -s'
+alias gd='git diff'
 alias glg="git log --graph --color --pretty=format:'%s  - %cr by %an - %h'"
 alias gcl='git config --list --show-scope'
+
 
 # cpu govenor aliases
 alias cpuavail='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_available_governors'
