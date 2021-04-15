@@ -1,3 +1,4 @@
+
 # sudo
 alias sudp='sudo'
 
@@ -136,5 +137,7 @@ function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\
 function debug-command() {  trap '{ set +xv; }' return; set -xv && eval $@; }
 
 # calc 
-
 function calc(){ awk "BEGIN { print "$*" }"; }
+
+
+	

@@ -104,6 +104,7 @@ fi
 #
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+    while inotifywait -q -q -e modify ~/.bash_aliases; do printf "\nReloading .bash_aliases\n" && source ~/.bash_aliases; done &
 fi
 
 
