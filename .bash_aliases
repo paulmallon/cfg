@@ -133,4 +133,8 @@ function _logWarning() { printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}
 function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"; }
 
 # Print commands and their arguments as they are executed
-function debug-command() {  trap 'set +x' return; set -x; eval $@; }
+function debug-command() {  trap '{ set +xv; }' return; set -xv && eval $@; }
+
+# calc 
+
+function calc(){ awk "BEGIN { print "$*" }"; }

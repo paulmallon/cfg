@@ -1,4 +1,3 @@
-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -143,11 +142,6 @@ GIT_PS1_SHOWCOLORHINTS=1
 #GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM=1
 
-
-#
-# calc function
-#
-calc(){ awk "BEGIN { print "$*" }"; }
 
 #
 # nomad settings
