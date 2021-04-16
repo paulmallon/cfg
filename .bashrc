@@ -241,6 +241,6 @@ else
     _logWarning ".bash_aliases not found"
 fi
 
-_logSuccess "All run commands executed"
 _logInfo "Java version: $(java --version | head -1 | cut -d " " -f 1,2)"
 _logInfo "JAVA_HOME: $JAVA_HOME"
+_logSuccess "All run commands executed in $SECONDS"
