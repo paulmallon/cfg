@@ -102,31 +102,21 @@ GIT_PS1_SHOWCOLORHINTS=1
 #GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM=1
 
-
 # nomad settings
 export NOMAD_ADDR=http://nomad.service.consul:4646
 complete -C /usr/bin/nomad nomad
 
-
 # JAVA HOME
-#export JAVA_HOME=/usr/lib/jvm/openjdk-15-jdk
-#export PATH=$PATH:$JAVA_HOME/bin
+export JAVA_HOME=/usr/lib/jvm/java-16-oracle
+export PATH=$PATH:$JAVA_HOME/bin
 
-
-#
 # confluent hub
-#
 export PATH=$PATH:/usr/local/bin/confluent-hub/bin
 
-#
 # ~/.local/bin
-#
 export PATH=$PATH:/home/pm/.local/bin
 
-
-#
 # gihub url
-#
 export GITHUB=git@github.com:paulmallon
 
 # ec2
@@ -230,14 +220,13 @@ function zen() {
 	echo -ne '\e]4;14;#93E0E3\a'
 }
 
-
 # Load aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
     while trap '' 2  && inotifywait -q -q -e modify ~/.bash_aliases; do source ~/.bash_aliases; done &
     trap - 2
 else 
-    _logWarning ".bash_aliases not found!"
+    _logWarning ".bash_aliases not found"
 fi
 
-_logInfo "All run commands executed. "
+_logInfo "All run commands executed"
