@@ -1,3 +1,4 @@
+start=`date +%s.%N`
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -243,4 +244,8 @@ fi
 
 _logInfo "Java version: $(java --version | head -1 | cut -d " " -f 1,2)"
 _logInfo "JAVA_HOME: $JAVA_HOME"
-_logSuccess "All run commands executed in $SECONDS"
+
+
+
+end=`date +%s.%N`
+_logSuccess "All run commands executed in $( echo "$end - $start" | bc -l )"
