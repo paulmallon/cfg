@@ -1,4 +1,3 @@
-
 # sudo
 alias sudp='sudo'
 
@@ -64,80 +63,5 @@ alias randomstrings='head -c 5000 /dev/urandom  | tr -dc 'a-zA-Z0-9' | fold -w 3
 # ksql db
 alias ksql='docker exec -it ksqldb ksql http://localhost:8088'
 
-# ec2
-__instanceId="i-01831f648d04a2008"
-
-function ec2-connect() {
-	local instanceId=$1
-        [[ -z $instanceId ]] && instanceId=${__instanceId}
-	local ip=$(aws ec2 describe-instances --instance-id ${instanceId} | jq -r ".Reservations[].Instances[] | select(.InstanceId == \"${instanceId}\") | .PublicDnsName" )
-        ssh -oStrictHostKeyChecking=no -i /home/pm/.ssh/ec2-2021.pem ubuntu@${ip}
-}
-
-function ec2-status() {
-	local instanceId=$1
-	[[ -z $instanceId ]] && instanceId=${__instanceId}
-	aws ec2 describe-instance-status --instance-id ${instanceId} | jq .
-}
-
-function ec2-start() {
-	local instanceId=$1
-        [[ -z $instanceId ]] && instanceId=${__instanceId}
-	aws ec2 start-instances --instance-id ${instanceId} | jq .
-	aws ec2 wait instance-running --instance-id ${instanceId}
-	ec2-status ${instanceId}
-	printf "\n\nPress enter to connect (ctrl-c to abort)...\n\n"
-	ec2-connect ${instanceId}
-}
-
-function ec2-stop() {
-	local instanceId=$1
-        [[ -z $instanceId ]] && instanceId=${__instanceId}
-	aws ec2 stop-instances --instance-id ${instanceId} | jq .
-	aws ec2 wait instance-stopped --instance-id ${instanceId}
-	ec2-status ${instanceId}
-	printf "\n\nInstance stopped\n\n"
-}
-
-# pretty 
-function pretty () { pygmentize -f terminal "$1"; }
-
-# list all colors available in 256 color mode (http://jafrog.com/2013/11/23/colors-in-terminal.html)
-function _colors() {
-    for code in {0..255}
-        do echo -e "\e[38;5;${code}m"'\\e[38;5;'"$code"m"\e[0m"
-    done
-}
-
-# console color aliases
-_ct_error="\e[0;31m"
-_ct_success="\e[0;32m"
-_ct_warning="\e[0;33m"
-_ct_highlight="\e[0;34m"
-_ct_primary="\e[0;36m"
-_ct="\e[0;37m"
-_ctb_subtle="\e[1;30m"
-_ctb_error="\e[1;31m"
-_ctb_success="\e[1;32m"
-_ctb_warning="\e[1;33m"
-_ctb_highlight="\e[1;34m"
-_ctb_primary="\e[1;36m"
-_ctb="\e[1;37m"
-_c_reset="\e[0m"
-
-# log functions
-function _logTrace()   { printf "${_ct}[${_ctb_subtle}TRACE${_ct}] $*${_c_reset}\n"; }
-function _logDebug()   { printf "${_ct}[${_ctb_primary}DEBUG${_ct}] $*${_c_reset}\n"; }
-function _logInfo()    { printf "${_ct}[${_ctb_highlight}INFO${_ct}] $*${_c_reset}\n"; }
-function _logSuccess() { printf "${_ct}[${_ctb_success}OK${_ct}] $*${_c_reset}\n"; }
-function _logWarning() { printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}\n"; }
-function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"; }
-
-# Print commands and their arguments as they are executed
-function debug-command() {  trap '{ set +xv; }' return; set -xv && eval $@; }
-
-# calc 
-function calc(){ awk "BEGIN { print "$*" }"; }
-
-
+_logInfo "Aliases loaded"
 	

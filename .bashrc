@@ -76,9 +76,6 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -98,40 +95,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#
-# Load aliases
-#
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-    while inotifywait -q -q -e modify ~/.bash_aliases; do printf "\nReloading .bash_aliases\n" && source ~/.bash_aliases; done &
-fi
-
-
-#
-# zenburn colors
-# 
-#
-function zen() {
-	echo -ne '\e]12;#BFBFBF\a'
-	echo -ne '\e]10;#DCDCCC\a'
-	echo -ne '\e]11;#3F3F3F\a'
-	echo -ne '\e]4;0;#3F3F3F\a'
-	echo -ne '\e]4;1;#705050\a'
-	echo -ne '\e]4;2;#60B48A\a'
-	echo -ne '\e]4;3;#DFAF8F\a'
-	echo -ne '\e]4;4;#506070\a'
-	echo -ne '\e]4;5;#DC8CC3\a'
-	echo -ne '\e]4;6;#8CD0D3\a'
-	echo -ne '\e]4;7;#DCDCCC\a'
-	echo -ne '\e]4;8;#709080\a'
-	echo -ne '\e]4;9;#DCA3A3\a'
-	echo -ne '\e]4;10;#C3BF9F\a'
-	echo -ne '\e]4;11;#F0DFAF\a'
-	echo -ne '\e]4;12;#94BFF3\a'
-	echo -ne '\e]4;13;#EC93D3\a'
-	echo -ne '\e]4;14;#93E0E3\a'
-}
 
 
 #
@@ -173,3 +136,124 @@ export PATH=$PATH:/home/pm/.local/bin
 # gihub url
 #
 export GITHUB=git@github.com:paulmallon
+
+# ec2
+__instanceId="i-01831f648d04a2008"
+
+function ec2-connect() {
+	local instanceId=$1
+        [[ -z $instanceId ]] && instanceId=${__instanceId}
+	local ip=$(aws ec2 describe-instances --instance-id ${instanceId} | jq -r ".Reservations[].Instances[] | select(.InstanceId == \"${instanceId}\") | .PublicDnsName" )
+        ssh -oStrictHostKeyChecking=no -i /home/pm/.ssh/ec2-2021.pem ubuntu@${ip}
+}
+
+function ec2-status() {
+	local instanceId=$1
+	[[ -z $instanceId ]] && instanceId=${__instanceId}
+	aws ec2 describe-instance-status --instance-id ${instanceId} | jq .
+}
+
+function ec2-start() {
+	local instanceId=$1
+        [[ -z $instanceId ]] && instanceId=${__instanceId}
+	aws ec2 start-instances --instance-id ${instanceId} | jq .
+	aws ec2 wait instance-running --instance-id ${instanceId}
+	ec2-status ${instanceId}
+	printf "\n\nPress enter to connect (ctrl-c to abort)...\n\n"
+	ec2-connect ${instanceId}
+}
+
+function ec2-stop() {
+	local instanceId=$1
+        [[ -z $instanceId ]] && instanceId=${__instanceId}
+	aws ec2 stop-instances --instance-id ${instanceId} | jq .
+	aws ec2 wait instance-stopped --instance-id ${instanceId}
+	ec2-status ${instanceId}
+	printf "\n\nInstance stopped\n\n"
+}
+
+# pretty 
+function pretty () { pygmentize -f terminal "$1"; }
+export -f pretty
+
+# list all colors available in 256 color mode (http://jafrog.com/2013/11/23/colors-in-terminal.html)
+function _colors() {
+    for code in {0..255}
+        do echo -e "\e[38;5;${code}m"'\\e[38;5;'"$code"m"\e[0m"
+    done
+}
+
+# console color aliases
+_ct_error="\e[0;31m"
+_ct_success="\e[0;32m"
+_ct_warning="\e[0;33m"
+_ct_highlight="\e[0;34m"
+_ct_primary="\e[0;36m"
+_ct="\e[0;37m"
+_ctb_subtle="\e[1;30m"
+_ctb_error="\e[1;31m"
+_ctb_success="\e[1;32m"
+_ctb_warning="\e[1;33m"
+_ctb_highlight="\e[1;34m"
+_ctb_primary="\e[1;36m"
+_ctb="\e[1;37m"
+_c_reset="\e[0m"
+
+# log functions
+function _logTrace()   { printf "${_ct}[${_ctb_subtle}TRACE${_ct}] $*${_c_reset}\n"; }
+function _logDebug()   { printf "${_ct}[${_ctb_primary}DEBUG${_ct}] $*${_c_reset}\n"; }
+function _logInfo()    { printf "${_ct}[${_ctb_highlight}INFO${_ct}] $*${_c_reset}\n"; }
+function _logSuccess() { printf "${_ct}[${_ctb_success}OK${_ct}] $*${_c_reset}\n"; }
+function _logWarning() { printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}\n"; }
+function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"; }
+export -f _logTrace _logDebug _logInfo _logSuccess _logWarning _logError
+
+# Print commands and their arguments as they are executed
+function debug-command() {  trap '{ set +xv; }' return; set -xv && eval $@; }
+export -f debug-command
+
+# calc 
+function calc(){ awk "BEGIN { print "$*" }"; }
+export -f calc
+
+
+#
+# zenburn colors
+# 
+#
+function zen() {
+	echo -ne '\e]12;#BFBFBF\a'
+	echo -ne '\e]10;#DCDCCC\a'
+	echo -ne '\e]11;#3F3F3F\a'
+	echo -ne '\e]4;0;#3F3F3F\a'
+	echo -ne '\e]4;1;#705050\a'
+	echo -ne '\e]4;2;#60B48A\a'
+	echo -ne '\e]4;3;#DFAF8F\a'
+	echo -ne '\e]4;4;#506070\a'
+	echo -ne '\e]4;5;#DC8CC3\a'
+	echo -ne '\e]4;6;#8CD0D3\a'
+	echo -ne '\e]4;7;#DCDCCC\a'
+	echo -ne '\e]4;8;#709080\a'
+	echo -ne '\e]4;9;#DCA3A3\a'
+	echo -ne '\e]4;10;#C3BF9F\a'
+	echo -ne '\e]4;11;#F0DFAF\a'
+	echo -ne '\e]4;12;#94BFF3\a'
+	echo -ne '\e]4;13;#EC93D3\a'
+	echo -ne '\e]4;14;#93E0E3\a'
+}
+
+
+
+
+#
+# Load aliases
+#
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+    while trap '' 2  && inotifywait -q -q -e modify ~/.bash_aliases; do source ~/.bash_aliases; done &
+else 
+    _logWarning ".bash_aliases not found!"
+fi
+
+
+_logInfo "All run commands executed. "
