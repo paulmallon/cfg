@@ -106,9 +106,10 @@ GIT_PS1_SHOWUPSTREAM=1
 export NOMAD_ADDR=http://nomad.service.consul:4646
 complete -C /usr/bin/nomad nomad
 
-# JAVA HOME
-export JAVA_HOME=/usr/lib/jvm/java-16-oracle
-export PATH=$PATH:$JAVA_HOME/bin
+# JAVA HOME 
+# Should be set by /etc/profile.d/jdk.sh
+#export JAVA_HOME=/usr/lib/jvm/java-16-oracle
+#export PATH=$PATH:$JAVA_HOME/bin
 
 # confluent hub
 export PATH=$PATH:/usr/local/bin/confluent-hub/bin
@@ -189,6 +190,9 @@ function _logSuccess() { printf "${_ct}[${_ctb_success}OK${_ct}] $*${_c_reset}\n
 function _logWarning() { printf "${_ct}[${_ctb_warning}WARN${_ct}] $*${_c_reset}\n"; }
 function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\n"; }
 export -f _logTrace _logDebug _logInfo _logSuccess _logWarning _logError
+alias _logOk='_logSuccess'
+
+
 
 # Print commands and their arguments as they are executed
 function debug-command() {  trap '{ set +xv; }' return; set -xv && eval $@; }
@@ -220,13 +224,23 @@ function zen() {
 	echo -ne '\e]4;14;#93E0E3\a'
 }
 
+# java 
+JAVA_HOME=/usr/java/openjdk/jdk-16
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+export JAVA_HOME
+export PATH
+
+
 # Load aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
     while trap '' 2  && inotifywait -q -q -e modify ~/.bash_aliases; do source ~/.bash_aliases; done &
     trap - 2
+    _logOk "Aliases loaded"
 else 
     _logWarning ".bash_aliases not found"
 fi
 
-_logInfo "All run commands executed"
+_logSuccess "All run commands executed"
+_logInfo "Java version: $(java --version | head -1 | cut -d " " -f 1,2)"
+_logInfo "JAVA_HOME: $JAVA_HOME"

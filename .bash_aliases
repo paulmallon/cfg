@@ -6,7 +6,7 @@ alias watchport="watch -n 1 -d -t 'nc -v -z 127.0.0.1'"
 alias watchports="watch -n 1 -d -t 'netstat -tulpn | grep LISTEN'"
 
 # java version
-alias javaversion='sudo update-alternatives --config java'
+alias javaversion='sudo update-alternatives --config java && sudo update-alternatives --config javac && java --version && javac --version'
 
 # cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' 
