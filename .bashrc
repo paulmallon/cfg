@@ -95,11 +95,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-
-#
 # git prompt settings
-#
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWCOLORHINTS=1
 #GIT_PS1_SHOWSTASHSTATE=1
@@ -107,16 +103,12 @@ GIT_PS1_SHOWCOLORHINTS=1
 GIT_PS1_SHOWUPSTREAM=1
 
 
-#
 # nomad settings
-#
 export NOMAD_ADDR=http://nomad.service.consul:4646
 complete -C /usr/bin/nomad nomad
 
 
-#
 # JAVA HOME
-#
 #export JAVA_HOME=/usr/lib/jvm/openjdk-15-jdk
 #export PATH=$PATH:$JAVA_HOME/bin
 
@@ -216,11 +208,7 @@ export -f debug-command
 function calc(){ awk "BEGIN { print "$*" }"; }
 export -f calc
 
-
-#
 # zenburn colors
-# 
-#
 function zen() {
 	echo -ne '\e]12;#BFBFBF\a'
 	echo -ne '\e]10;#DCDCCC\a'
@@ -243,17 +231,13 @@ function zen() {
 }
 
 
-
-
-#
 # Load aliases
-#
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
     while trap '' 2  && inotifywait -q -q -e modify ~/.bash_aliases; do source ~/.bash_aliases; done &
+    trap - 2
 else 
     _logWarning ".bash_aliases not found!"
 fi
-
 
 _logInfo "All run commands executed. "
