@@ -245,7 +245,8 @@ fi
 _logInfo "Java version: $(java --version | head -1 | cut -d " " -f 1,2)"
 _logInfo "JAVA_HOME: $JAVA_HOME"
 
-
+config diff --no-ext-diff --quiet ||  _logWarning "Local dotfiles dirty"
 
 end=`date +%s.%N`
 _logSuccess "All run commands executed in $( echo "$end - $start" | bc -l )"
+
