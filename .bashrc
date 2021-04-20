@@ -245,6 +245,7 @@ export JAVA_HOME
 export PATH
 
 # Print java info
+echo -e ""
 _logInfo "Java version: $(java --version | head -1 | cut -d " " -f 1,2)"
 _logInfo "JAVA_HOME: $JAVA_HOME"
 
@@ -263,3 +264,4 @@ fi
 
 # Print end status
 _logSuccess "All run commands executed in $( echo "$(date +%s.%N) - $start" | bc -l )"
+echo -e ""
