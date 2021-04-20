@@ -102,7 +102,7 @@ GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWCOLORHINTS=1
 #GIT_PS1_SHOWSTASHSTATE=1
 #GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM=1
+GIT_PS1_SHOWUPSTREAM=verbose
 
 # nomad settings
 export NOMAD_ADDR=http://nomad.service.consul:4646
@@ -217,6 +217,25 @@ function zen() {
 	echo -ne '\e]4;13;#EC93D3\a'
 	echo -ne '\e]4;14;#93E0E3\a'
 }
+
+# Show the divergence from upstream
+function git_show_upstream() { 
+	count=$(git rev-list --left-right --count @{upstream}...HEAD)
+
+	case "$count" in "") # no upstream
+                p="no upstream" ;;
+        "0	0")
+                p="is equal to upstream" ;;
+        "0	"*)
+                p="is ahead of upstream (${count#0})" ;;
+        *"	0")
+                p="is behind upstream" ;;
+        *)
+                p="have diverged from upstream" ;;
+        esac
+        echo "Current branch ${p}."
+}
+export -f git_show_upstream
 
 # Java config
 # Should be set by /etc/profile.d/jdk.sh
