@@ -227,7 +227,7 @@ function git_show_upstream() {
         "0	0")
                 p="is equal to upstream" ;;
         "0	"*)
-                p="is ahead of upstream (${count#0})" ;;
+                p="is ahead of upstream" ;;
         *"	0")
                 p="is behind upstream" ;;
         *)
