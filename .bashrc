@@ -220,6 +220,17 @@ function zen() {
 
 # Show the divergence from upstream
 function git_show_upstream() { 
+
+	if ! $(git update-index --refresh && git diff-index --quiet HEAD --); then
+		echo "There are untracked changes!";
+		#git status --porcelain ;
+	fi
+
+	if ! git ls-files --others --exclude-standard --directory --no-empty-directory --error-unmatch -- ':/*' >/dev/null 2>/dev/null; then 
+		echo "There are untracked files!"
+	fi
+
+	
 	count=$(git rev-list --left-right --count @{upstream}...HEAD)
 
 	case "$count" in "") # no upstream
