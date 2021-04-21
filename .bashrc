@@ -223,7 +223,7 @@ function git_show_upstream() {
 
 	if ! $(git update-index --refresh && git diff-index --quiet HEAD --); then
 		echo "There are untracked changes!";
-		#git status --porcelain ;
+		#git status --porcelain ;	
 	fi
 
 	if ! git ls-files --others --exclude-standard --directory --no-empty-directory --error-unmatch -- ':/*' >/dev/null 2>/dev/null; then 
