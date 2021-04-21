@@ -220,17 +220,23 @@ function zen() {
 
 # Show the divergence from upstream
 function git_show_upstream() { 
+#
+# move to repo_info variable #405 in git-prompt
+#
 
-	if ! $(git update-index --refresh && git diff-index --quiet HEAD --); then
-		echo "There are untracked changes!";
-		#git status --porcelain ;	
+	if ! git rev-parse --is-inside-work-tree 2>/dev/null; then 
+		return 100;
 	fi
 
-	if ! git ls-files --others --exclude-standard --directory --no-empty-directory --error-unmatch -- ':/*' >/dev/null 2>/dev/null; then 
-		echo "There are untracked files!"
-	fi
+	git diff --no-ext-diff --quiet || echo "- There are unstaged changes"
 
-	
+	git diff --no-ext-diff --cached --quiet || echo "- There are staged changes"
+
+	git ls-files --others --exclude-standard --directory \
+		--no-empty-directory --error-unmatch -- ':/*' >/dev/null 2>/dev/null && \
+		echo "- Untracked files"
+
+
 	count=$(git rev-list --left-right --count @{upstream}...HEAD)
 
 	case "$count" in "") # no upstream
@@ -244,7 +250,7 @@ function git_show_upstream() {
         *)
                 p="have diverged from upstream" ;;
         esac
-        echo "Current branch ${p}."
+        echo "- Current branch ${p}."
 }
 export -f git_show_upstream
 
