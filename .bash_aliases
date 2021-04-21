@@ -47,6 +47,7 @@ alias mcist='mvn clean install -Dmaven.test.skip=true'
 alias mt='mvn test'
 alias mc='mvn clean'
 alias mct='mvn clean test'
+alias mvnintegrationtest='mvn clean install failsafe:integration-test'
 
 # ansible-play
 alias ap='ansible-playbook local.yml --ask-become-pass'
