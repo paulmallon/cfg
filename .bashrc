@@ -224,18 +224,18 @@ function git_show_upstream() {
 # move to repo_info variable #405 in git-prompt
 #
 
-	if ! git rev-parse --is-inside-work-tree 2>/dev/null; then 
-		return 100;
+ 	isInsideWorkTree=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+
+	if [[ "true" != $isInsideWorkTree ]]; then
+		echo "Not inside git work tree"
+		return 9
 	fi
 
 	git diff --no-ext-diff --quiet || echo "- There are unstaged changes"
-
 	git diff --no-ext-diff --cached --quiet || echo "- There are staged changes"
-
 	git ls-files --others --exclude-standard --directory \
 		--no-empty-directory --error-unmatch -- ':/*' >/dev/null 2>/dev/null && \
 		echo "- Untracked files"
-
 
 	count=$(git rev-list --left-right --count @{upstream}...HEAD)
 
@@ -250,6 +250,7 @@ function git_show_upstream() {
         *)
                 p="have diverged from upstream" ;;
         esac
+
         echo "- Current branch ${p}."
 }
 export -f git_show_upstream
