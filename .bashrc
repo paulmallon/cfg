@@ -230,7 +230,7 @@ function git_show_upstream() {
 		echo "Not inside git work tree"
 		return 9
 	fi
-
+	git fetch -q
 	git diff --no-ext-diff --quiet || echo "- There are unstaged changes"
 	git diff --no-ext-diff --cached --quiet || echo "- There are staged changes"
 	git ls-files --others --exclude-standard --directory \
