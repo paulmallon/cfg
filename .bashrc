@@ -274,6 +274,15 @@ _logInfo "JAVA_HOME: $JAVA_HOME"
 # check dot files status
 /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff --no-ext-diff --quiet ||  _logWarning "Local dot files are dirty!"
 
+
+# load git bash completion functions
+if [ -f ~/.bash_aliases ]; then
+    . /usr/share/bash-completion/completions/git
+    __git_complete config __git_main
+fi;
+
+
+
 # Load aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
