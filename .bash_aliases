@@ -24,13 +24,19 @@ alias ls='ls -alF --color'
 
 # git aliases
 alias g='git'
-alias gl='git log --oneline'
+
 alias gs='git status -b -s'
 alias gd='git diff'
-alias glg="git log --graph --color --pretty=format:'%s  - %cr by %an - %h'"
-alias glgg='git log --oneline --decorate --color --graph'
+
+alias gl='git log --oneline --max-count=10'
+alias glg="git log --graph --oneline --max-count=10"
+alias glgg='git log --graph --oneline --decorate'
+alias glgga='git log --graph --decorate --all --stat'
+
 alias gcl='git config --list --show-scope'
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
+
+alias gpoat='git push origin --all && git push origin --tags'
 
 # cpu govenor aliases
 alias cpuavail='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_available_governors'
