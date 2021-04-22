@@ -10,7 +10,7 @@ alias javaversion='sudo update-alternatives --config java && sudo update-alterna
 
 # cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' 
-alias configcommit='config add ~/.bashrc && config add ~/.bash_aliases && config commit -m "Updated .bashrc and .bash_aliases" && config push -q'
+alias configcommit='config add ~/.bashrc && config add ~/.bash_aliases && config commit -q -m "Updated .bashrc and .bash_aliases" && config push -q'
 
 # alert alias
 #  Example:   sleep 10; alert
