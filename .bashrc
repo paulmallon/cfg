@@ -279,6 +279,7 @@ _logInfo "JAVA_HOME: $JAVA_HOME"
 if [ -f ~/.bash_aliases ]; then
     . /usr/share/bash-completion/completions/git
     __git_complete config __git_main
+    __git_complete g __git_main
 fi;
 
 

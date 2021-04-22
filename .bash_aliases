@@ -23,6 +23,7 @@ alias l='ls -CF --color'
 alias ls='ls -alF --color'
 
 # git aliases
+alias g='git'
 alias gl='git log --oneline'
 alias gs='git status -b -s'
 alias gd='git diff'
