@@ -152,7 +152,7 @@ function ec2-stop() {
 	printf "\n\nInstance stopped\n\n"
 }
 
-# pretty 
+# prett
 function pretty () { pygmentize -f terminal "$1"; }
 export -f pretty
 
@@ -189,11 +189,18 @@ function _logError()   { printf "${_ct}[${_ctb_error}ERROR${_ct}] $*${_c_reset}\
 export -f _logTrace _logDebug _logInfo _logSuccess _logWarning _logError
 
 # Print commands and their arguments as they are executed
-function debug-command() {  trap '{ set +xv; }' return; set -xv && eval $@; }
+function debug-command() {  
+	trap '{ set +xv; }' return; 
+	set -xv && eval $@; 
+}
+
 export -f debug-command
 
 # calc 
-function calc(){ awk "BEGIN { print "$*" }"; }
+function calc(){ 
+	awk "BEGIN { print "$*" }"; 
+}
+
 export -f calc
 
 # zenburn colors
@@ -220,16 +227,12 @@ function zen() {
 
 # Show the divergence from upstream
 function git_show_upstream() { 
-#
-# move to repo_info variable #405 in git-prompt
-#
-
  	isInsideWorkTree=$(git rev-parse --is-inside-work-tree 2>/dev/null)
-
 	if [[ "true" != $isInsideWorkTree ]]; then
 		echo "Not inside git work tree"
 		return 9
 	fi
+
 	git fetch -q
 	git diff --no-ext-diff --quiet || echo "- There are unstaged changes"
 	git diff --no-ext-diff --cached --quiet || echo "- There are staged changes"
@@ -251,7 +254,7 @@ function git_show_upstream() {
                 p="have diverged from upstream" ;;
         esac
 
-        echo "- Current branch ${p}."
+	echo "- Current branch ${p}."
 }
 
 export -f git_show_upstream
