@@ -253,6 +253,7 @@ function git_show_upstream() {
 
         echo "- Current branch ${p}."
 }
+
 export -f git_show_upstream
 
 # Java config
