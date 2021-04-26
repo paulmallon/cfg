@@ -259,6 +259,8 @@ function git_show_upstream() {
 
 export -f git_show_upstream
 
+function findinfiles() { grep --include "$2" -iRn "$1" ./; }
+
 # Java config
 # Should be set by /etc/profile.d/jdk.sh
 JAVA_HOME=/usr/java/openjdk/jdk-16

@@ -76,3 +76,6 @@ alias ksql='docker exec -it ksqldb ksql http://localhost:8088'
 alias _logOk='_logSuccess'
 alias _logWarn='_logWarning'
 
+# nomad
+alias nl='nomad logs'
+
