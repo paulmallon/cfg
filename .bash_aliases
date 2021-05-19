@@ -40,7 +40,7 @@ alias gpoat='git push origin --all && git push origin --tags'
 
 # cpu govenor aliases
 alias cpuavail='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_available_governors'
-alias cpushow='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && lscpu |egrep "Model name|MHz"'
+alias cpushow='cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor | sort | uniq && lscpu | egrep "Model name|MHz"'
 alias cpuhigh='echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 alias cpulow='echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 
