@@ -299,3 +299,6 @@ fi
 # Print end status
 _logSuccess "All run commands executed in $( echo "$(date +%s.%N) - $start" | bc -l )"
 echo -e ""
+
+
+export PROMPT_COMMAND="echo -n \[\$(date +%H:%M:%S)\]\ "
