@@ -301,4 +301,4 @@ _logSuccess "All run commands executed in $( echo "$(date +%s.%N) - $start" | bc
 echo -e ""
 
 
-export PROMPT_COMMAND="echo -n \[\$(date +%H:%M:%S)\]\ "
+#export PROMPT_COMMAND="echo -n \[\$(date +%H:%M:%S)\]\ "
